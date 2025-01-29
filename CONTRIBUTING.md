@@ -1,277 +1,245 @@
-# 👋 Welcome
+# Contributing to Coolify
 
-First of all, thank you for considering contributing to my project! It means a lot 💜.
+> "First, thanks for considering contributing to my project. It really means a lot!" - [@andrasbacsai](https://github.com/andrasbacsai)
 
-## 🙋 Want to help?
+You can ask for guidance anytime on our [Discord server](https://coollabs.io/discord) in the `#contribute` channel.
 
-If you begin in GitHub contribution, you can find the [first contribution](https://github.com/firstcontributions/first-contributions) and follow this guide.
+To understand the tech stack, please refer to the [Tech Stack](TECH_STACK.md) document.
 
-Follow the [introduction](#introduction) to get started then start contributing!
+## Table of Contents
 
-This is a little list of what you can do to help the project:
+1. [Setup Development Environment](#1-setup-development-environment)
+2. [Verify Installation](#2-verify-installation-optional)
+3. [Fork and Setup Local Repository](#3-fork-and-setup-local-repository)
+4. [Set up Environment Variables](#4-set-up-environment-variables)
+5. [Start Coolify](#5-start-coolify)
+6. [Start Development](#6-start-development)
+7. [Create a Pull Request](#7-create-a-pull-request)
+8. [Development Notes](#development-notes)
+9. [Resetting Development Environment](#resetting-development-environment)
+10. [Additional Contribution Guidelines](#additional-contribution-guidelines)
 
-- [🧑‍💻 Develop your own ideas](#developer-contribution)
-- [🌐 Translate the project](#translation)
+## 1. Setup Development Environment
 
-## 👋 Introduction
+Follow the steps below for your operating system:
 
-🔴 At the moment, Coolify **doesn't support Windows**. You must use Linux or MacOS.
+<details>
+<summary><strong>Windows</strong></summary>
 
-#### Recommended Pull Request Guideline
+1. Install `docker-ce`, Docker Desktop (or similar):
+   - Docker CE (recommended):
+     - Install Windows Subsystem for Linux v2 (WSL2) by following this guide: [Install WSL](https://learn.microsoft.com/en-us/windows/wsl/install?ref=coolify)
+     - After installing WSL2, install Docker CE for your Linux distribution by following this guide: [Install Docker Engine](https://docs.docker.com/engine/install/?ref=coolify)
+     - Make sure to choose the appropriate Linux distribution (e.g., Ubuntu) when following the Docker installation guide
+   - Install Docker Desktop (easier):
+     - Download and install [Docker Desktop for Windows](https://docs.docker.com/desktop/install/windows-install/?ref=coolify)
+     - Ensure WSL2 backend is enabled in Docker Desktop settings
 
-- Fork the project
-- Clone your fork repo to local
-- Create a new branch
-- Push to your fork repo
-- Create a pull request: https://github.com/coollabsio/compare
-- Write a proper description
-- Open the pull request to review against `next` branch
+2. Install Spin:
+   - Follow the instructions to install Spin on Windows from the [Spin documentation](https://serversideup.net/open-source/spin/docs/installation/install-windows#download-and-install-spin-into-wsl2?ref=coolify)
 
----
+</details>
 
-# How to start after you set up your local fork?
+<details>
+<summary><strong>MacOS</strong></summary>
 
-Due to the lock file, this repository is best with [pnpm](https://pnpm.io). I recommend you try and use `pnpm` because it is cool and efficient!
+1. Install Orbstack, Docker Desktop (or similar):
+   - Orbstack (recommended, as it is a faster and lighter alternative to Docker Desktop):
+     - Download and install [Orbstack](https://docs.orbstack.dev/quick-start#installation?ref=coolify)
+   - Docker Desktop:
+     - Download and install [Docker Desktop for Mac](https://docs.docker.com/desktop/install/mac-install/?ref=coolify)
 
-You need to have [Docker Engine](https://docs.docker.com/engine/install/) installed locally.
+2. Install Spin:
+   - Follow the instructions to install Spin on MacOS from the [Spin documentation](https://serversideup.net/open-source/spin/docs/installation/install-macos/#download-and-install-spin?ref=coolify)
 
-#### Setup a local development environment
+</details>
 
-- Copy `.env.template` to `.env` and set the `COOLIFY_APP_ID` environment variable to something cool.
-- Install dependencies with `pnpm install`.
-- Need to create a local SQlite database with `pnpm db:push`.
-  - This will apply all migrations at `db/dev.db`.
-- Seed the database with base entities with `pnpm db:seed`
-- You can start coding after starting `pnpm dev`.
+<details>
+<summary><strong>Linux</strong></summary>
 
-#### How to start after you set up your local fork?
+1. Install Docker Engine, Docker Desktop (or similar):
+   - Docker Engine (recommended, as there is no VM overhead):
+     - Follow the official [Docker Engine installation guide](https://docs.docker.com/engine/install/?ref=coolify) for your Linux distribution
+   - Docker Desktop:
+     - If you want a GUI, you can use [Docker Desktop for Linux](https://docs.docker.com/desktop/install/linux-install/?ref=coolify)
 
-This repository works better with [pnpm](https://pnpm.io) due to the lock file. I recommend you to give it a try and use `pnpm` as well because it is cool and efficient!
+2. Install Spin:
+   - Follow the instructions to install Spin on Linux from the [Spin documentation](https://serversideup.net/open-source/spin/docs/installation/install-linux#configure-docker-permissions?ref=coolify)
 
-You need to have [Docker Engine](https://docs.docker.com/engine/install/) installed locally.
+</details>
 
-## 🧑‍💻 Developer contribution
+## 2. Verify Installation (Optional)
 
-### Technical skills required
+After installing Docker (or Orbstack) and Spin, verify the installation:
 
-- **Languages**: Node.js / Javascript / Typescript
-- **Framework JS/TS**: Svelte / SvelteKit
-- **Database ORM**: Prisma.io
-- **Docker Engine**
+1. Open a terminal or command prompt
+2. Run the following commands:
+   ```bash
+   docker --version
+   spin --version
+   ```
+   You should see version information for both Docker and Spin.
 
-### Database migrations
+## 3. Fork and Setup Local Repository
 
-During development, if you change the database layout, you need to run `pnpm db:push` to migrate the database and create types for Prisma. You also need to restart the development process.
+1. Fork the [Coolify](https://github.com/coollabsio/coolify) repository to your GitHub account.
 
-If the schema is finalized, you need to create a migration file with `pnpm db:migrate <nameOfMigration>` where `nameOfMigration` is given by you. Make it sense. :)
+2. Install a code editor on your machine (choose one):
 
-### Tricky parts
+   | Editor | Platform | Download Link |
+   |--------|----------|---------------|
+   | Visual Studio Code (recommended free) | Windows/macOS/Linux | [Download](https://code.visualstudio.com/download?ref=coolify) |
+   | Cursor (recommended but paid) | Windows/macOS/Linux | [Download](https://www.cursor.com/?ref=coolify) |
+   | Zed (very fast) | macOS/Linux | [Download](https://zed.dev/download?ref=coolify) |
 
-- BullMQ, the queue system Coolify uses, cannot be hot reloaded. So if you change anything in the files related to it, you need to restart the development process. I'm actively looking for a different queue/scheduler library. I'm open to discussion!
+3. Clone the Coolify Repository from your fork to your local machine
+   - Use `git clone` in the command line, or
+   - Use GitHub Desktop (recommended):
+     - Download and install from [https://desktop.github.com/](https://desktop.github.com/?ref=coolify)
+     - Open GitHub Desktop and login with your GitHub account
+     - Click on `File` -> `Clone Repository` select `github.com` as the repository location, then select your forked Coolify repository, choose the local path and then click `Clone`
 
----
+4. Open the cloned Coolify Repository in your chosen code editor.
 
-# How to add new services
+## 4. Set up Environment Variables
 
-You can add any open-source and self-hostable software (service/application) to Coolify if the following statements are true:
+1. In the Code Editor, locate the `.env.development.example` file in the root directory of your local Coolify repository.
+2. Duplicate the `.env.development.example` file and rename the copy to `.env`.
+3. Open the new `.env` file and review its contents. Adjust any environment variables as needed for your development setup.
+4. If you encounter errors during database migrations, update the database connection settings in your `.env` file. Use the IP address or hostname of your PostgreSQL database container. You can find this information by running `docker ps` after executing `spin up`.
+5. Save the changes to your `.env` file.
 
-- Self-hostable (obviously)
-- Open-source
-- Maintained (I do not want to add software full of bugs)
+## 5. Start Coolify
 
-## Backend
+1. Open a terminal in the local Coolify directory.
+2. Run the following command in the terminal (leave that terminal open):
+   ```bash
+   spin up
+   ```
 
-There are 5 steps you should make on the backend side.
+> [!NOTE]
+> You may see some errors, but don't worry; this is expected.
 
-1. Create Prisma / database schema for the new service.
-2. Add supported versions of the service.
-3. Update global functions.
-4. Create API endpoints.
-5. Define automatically generated variables.
+3. If you encounter permission errors, especially on macOS, use:
+   ```bash
+   sudo spin up
+   ```
 
-> I will use [Umami](https://umami.is/) as an example service.
+> [!NOTE]
+> If you change environment variables afterwards or anything seems broken, press Ctrl + C to stop the process and run `spin up` again.
 
-### Create Prisma / database schema for the new service.
+## 6. Start Development
 
-You only need to do this if you store passwords or any persistent configuration. Mostly it is required by all services, but there are some exceptions, like NocoDB.
+1. Access your Coolify instance:
+   - URL: `http://localhost:8000`
+   - Login: `test@example.com`
+   - Password: `password`
 
-Update Prisma schema in [prisma/schema.prisma](prisma/schema.prisma).
+2. Additional development tools:
+   | Tool | URL | Note |
+   |------|-----|------|
+   | Laravel Horizon (scheduler) | `http://localhost:8000/horizon` | Only accessible when logged in as root user |
+   | Mailpit (email catcher) | `http://localhost:8025` | |
+   | Telescope (debugging tool) | `http://localhost:8000/telescope` | Disabled by default |
 
-- Add new model with the new service name.
-- Make a relationshup with `Service` model.
-- In the `Service` model, the name of the new field should be with low-capital.
-- If the service needs a database, define a `publicPort` field to be able to make it's database public, example field name in case of PostgreSQL: `postgresqlPublicPort`. It should be a optional field.
-
-If you are finished with the Prisma schema, you should update the database schema with `pnpm db:push` command.
-
-> You must restart the running development environment to be able to use the new model
-
-> If you use VSCode, you probably need to restart the `Typescript Language Server` to get the new types loaded in the running VSCode.
-
-### Add supported versions
-
-Supported versions are hardcoded into Coolify (for now).
-
-You need to update `supportedServiceTypesAndVersions` function at [src/lib/components/common.ts](src/lib/components/common.ts). Example JSON:
-
-```js
-     {
-       // Name used to identify the service internally
-       name: 'umami',
-       // Fancier name to show to the user
-       fancyName: 'Umami',
-       // Docker base image for the service
-       baseImage: 'ghcr.io/mikecao/umami',
-       // Optional: If there is any dependent image, you should list it here
-       images: [],
-       // Usable tags
-       versions: ['postgresql-latest'],
-       // Which tag is the recommended
-       recommendedVersion: 'postgresql-latest',
-       // Application's default port, Umami listens on 3000
-       ports: {
-         main: 3000
-       }
-     }
-```
-
-### Update global functions
-
-1. Add the new service to the `include` variable in [src/lib/database/services.ts](src/lib/database/services.ts), so it will be included in all places in the database queries where it is required.
-
-```js
-const include: Prisma.ServiceInclude = {
-	destinationDocker: true,
-	persistentStorage: true,
-	serviceSecret: true,
-	minio: true,
-	plausibleAnalytics: true,
-	vscodeserver: true,
-	wordpress: true,
-	ghost: true,
-	meiliSearch: true,
-	umami: true // This line!
-};
-```
+> [!NOTE]
+> To enable Telescope, add the following to your `.env` file:
+> ```env
+> TELESCOPE_ENABLED=true
+> ```
 
-2. Update the database update query with the new service type to `configureServiceType` function in [src/lib/database/services.ts](src/lib/database/services.ts). This function defines the automatically generated variables (passwords, users, etc.) and it's encryption process (if applicable).
+## 7. Create a Pull Request
 
-```js
-[...]
-else if (type === 'umami') {
-		const postgresqlUser = cuid();
-		const postgresqlPassword = encrypt(generatePassword());
-		const postgresqlDatabase = 'umami';
-		const hashSalt = encrypt(generatePassword(64));
-		await prisma.service.update({
-			where: { id },
-			data: {
-				type,
-				umami: {
-					create: {
-						postgresqlDatabase,
-						postgresqlPassword,
-						postgresqlUser,
-						hashSalt,
-					}
-				}
-			}
-		});
-	}
-```
+1. After making changes or adding a new service:
+   - Commit your changes to your forked repository.
+   - Push the changes to your GitHub account.
 
-3. Add decryption process for configurations and passwords to `getService` function in [src/lib/database/services.ts](src/lib/database/services.ts)
+2. Creating the Pull Request (PR):
+   - Navigate to the main Coolify repository on GitHub.
+   - Click the "Pull requests" tab.
+   - Click the green "New pull request" button.
+   - Choose your fork and branch as the compare branch.
+   - Click "Create pull request".
 
-```js
-if (body.umami?.postgresqlPassword)
-	body.umami.postgresqlPassword = decrypt(body.umami.postgresqlPassword);
+3. Filling out the PR details:
+   - Give your PR a descriptive title.
+   - Use the Pull Request Template provided and fill in the details.
 
-if (body.umami?.hashSalt) body.umami.hashSalt = decrypt(body.umami.hashSalt);
-```
+> [!IMPORTANT]
+> Always set the base branch for your PR to the `next` branch of the Coolify repository, not the `main` branch.
 
-4. Add service deletion query to `removeService` function in [src/lib/database/services.ts](src/lib/database/services.ts)
+4. Submit your PR:
+   - Review your changes one last time.
+   - Click "Create pull request" to submit.
 
-### Create API endpoints.
+> [!NOTE]
+> Make sure your PR is out of draft mode as soon as it's ready for review. PRs that are in draft mode for a long time may be closed by maintainers.
 
-You need to add a new folder under [src/routes/services/[id]](src/routes/services/[id]) with the low-capital name of the service. You need 3 default files in that folder.
+After submission, maintainers will review your PR and may request changes or provide feedback.
 
-#### `index.json.ts`:
+## Development Notes
 
-It has a POST endpoint that updates the service details in Coolify's database, such as name, url, other configurations, like passwords. It should look something like this:
+When working on Coolify, keep the following in mind:
 
-```js
-import { getUserDetails } from '$lib/common';
-import * as db from '$lib/database';
-import { ErrorHandler } from '$lib/database';
-import type { RequestHandler } from '@sveltejs/kit';
+1. **Database Migrations**: After switching branches or making changes to the database structure, always run migrations:
+   ```bash
+   docker exec -it coolify php artisan migrate
+   ```
 
-export const post: RequestHandler = async (event) => {
-	const { status, body } = await getUserDetails(event);
-	if (status === 401) return { status, body };
+2. **Resetting Development Setup**: To reset your development setup to a clean database with default values:
+   ```bash
+   docker exec -it coolify php artisan migrate:fresh --seed
+   ```
 
-	const { id } = event.params;
+3. **Troubleshooting**: If you encounter unexpected behavior, ensure your database is up-to-date with the latest migrations and if possible reset the development setup to eliminate any environment-specific issues.
 
-	let { name, fqdn } = await event.request.json();
-	if (fqdn) fqdn = fqdn.toLowerCase();
+> [!IMPORTANT]
+> Forgetting to migrate the database can cause problems, so make it a habit to run migrations after pulling changes or switching branches.
 
-	try {
-		await db.updateService({ id, fqdn, name });
-		return { status: 201 };
-	} catch (error) {
-		return ErrorHandler(error);
-	}
-};
-```
+## Resetting Development Environment
 
-If it's necessary, you can create your own database update function, specifically for the new service.
+If you encounter issues or break your database or something else, follow these steps to start from a clean slate (works since `v4.0.0-beta.342`):
 
-#### `start.json.ts`
+1. Stop all running containers `ctrl + c`.
 
-It has a POST endpoint that sets all the required secrets, persistent volumes, `docker-compose.yaml` file and sends a request to the specified docker engine.
+2. Remove all Coolify containers:
+   ```bash
+   docker rm coolify coolify-db coolify-redis coolify-realtime coolify-testing-host coolify-minio coolify-vite-1 coolify-mail
+   ```
 
-You could also define an `HTTP` or `TCP` proxy for every other port that should be proxied to your server. (See `startHttpProxy` and `startTcpProxy` functions in [src/lib/haproxy/index.ts](src/lib/haproxy/index.ts))
+3. Remove Coolify volumes (it is possible that the volumes have no `coolify` prefix on your machine, in that case remove the prefix from the command):
+   ```bash
+   docker volume rm coolify_dev_backups_data coolify_dev_postgres_data coolify_dev_redis_data coolify_dev_coolify_data coolify_dev_minio_data
+   ```
 
-#### `stop.json.ts`
+4. Remove unused images:
+   ```bash
+   docker image prune -a
+   ```
 
-It has a POST endpoint that stops the service and all dependent (TCP/HTTP proxies) containers. If publicPort is specified it also needs to cleanup it from the database.
+5. Start Coolify again:
+   ```bash
+   spin up
+   ```
 
-## Frontend
+6. Run database migrations and seeders:
+   ```bash
+   docker exec -it coolify php artisan migrate:fresh --seed
+   ```
 
-1. You need to add a custom logo at [src/lib/components/svg/services/](src/lib/components/svg/services/) as a svelte component.
+After completing these steps, you'll have a fresh development setup.
 
-   SVG is recommended, but you can use PNG as well. It should have the `isAbsolute` variable with the suitable CSS classes, primarily for sizing and positioning.
+> [!IMPORTANT]
+> Always run database migrations and seeders after switching branches or pulling updates to ensure your local database structure matches the current codebase and includes necessary seed data.
 
-2. You need to include it the logo at
+## Additional Contribution Guidelines
 
-- [src/routes/services/index.svelte](src/routes/services/index.svelte) with `isAbsolute` in two places,
-- [src/lib/components/ServiceLinks.svelte](src/lib/components/ServiceLinks.svelte) with `isAbsolute` and a link to the docs/main site of the service
-- [src/routes/services/[id]/configuration/type.svelte](src/routes/services/[id]/configuration/type.svelte) with `isAbsolute`.
+### Contributing a New Service
 
-3. By default the URL and the name frontend forms are included in [src/routes/services/[id]/\_Services/\_Services.svelte](src/routes/services/[id]/_Services/_Services.svelte).
+To add a new service to Coolify, please refer to our documentation:
+[Adding a New Service](https://coolify.io/docs/knowledge-base/contribute/service)
 
-   If you need to show more details on the frontend, such as users/passwords, you need to add Svelte component to [src/routes/services/[id]/\_Services](src/routes/services/[id]/_Services) with an underscore. For example, see other files in that folder.
+### Contributing to Documentation
 
-   You also need to add the new inputs to the `index.json.ts` file of the specific service, like for MinIO here: [src/routes/services/[id]/minio/index.json.ts](src/routes/services/[id]/minio/index.json.ts)
-
-## 🌐 Translate the project
-
-The project use [sveltekit-i18n](https://github.com/sveltekit-i18n/lib) to translate the project.
-It follows the [ISO 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) to name languages.
-
-### Installation
-
-You must have gone throw all the [intro](#introduction) steps before you can start translating.
-
-It's only an advice, but I recommend you to use:
-
-- Visual Studio Code
-- [i18n Ally for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=Lokalise.i18n-ally): ideal to see the progress of the translation.
-- [Svelte for VS Code](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode): to get the syntax color for the project
-
-### Adding a language
-
-If your language doesn't appear in the [locales folder list](src/lib/locales/), follow the step below:
-
-1.  In `src/lib/locales/`, Copy paste `en.json` and rename it with your language (eg: `cz.json`).
-2.  In the [lang.json](src/lib/lang.json) file, add a line after the first bracket (`{`) with `"ISO of your language": "Language",` (eg: `"cz": "Czech",`).
-3.  Have fun translating!
+To contribute to the Coolify documentation, please refer to this guide:
+[Contributing to the Coolify Documentation](https://github.com/coollabsio/documentation-coolify/blob/main/CONTRIBUTING.md)
