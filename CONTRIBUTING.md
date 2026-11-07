@@ -1,277 +1,271 @@
-# 👋 Welcome
+# Contributing to Coolify
+We’re happy that you’re interested in contributing to Coolify!
 
-First of all, thank you for considering contributing to my project! It means a lot 💜.
+There are many ways to help:
+- Answer questions in GitHub Discussions or Discord
+- Report reproducible bugs
+- Submit pull requests to fix issues
+- Add new one-click services
+- Improve documentation
 
-## 🙋 Want to help?
+Coolify is a PaaS used by 400,000+ people worldwide and maintained by two active maintainers. Contributions are welcome — but **alignment matters more than quantity**.
 
-If you begin in GitHub contribution, you can find the [first contribution](https://github.com/firstcontributions/first-contributions) and follow this guide.
+This guide explains **what kind of contributions are likely to be accepted** and how to submit them properly. Following it saves time for both you and the maintainers.
 
-Follow the [introduction](#introduction) to get started then start contributing!
+> [!IMPORTANT]
+> These guidelines may feel stricter than in many open-source projects. That is intentional.
+> Clear structure and boundaries prevent maintainer burnout and keep the project sustainable long-term.
 
-This is a little list of what you can do to help the project:
 
-- [🧑‍💻 Develop your own ideas](#developer-contribution)
-- [🌐 Translate the project](#translation)
+## High-Level Expectations
+- Coolify has a clear product direction.
+- Ownership and decisions are centralized.
+- Review capacity is limited.
+- Not every contribution will be accepted — even if technically correct.
 
-## 👋 Introduction
+This is normal for a two-maintainer project.
 
-🔴 At the moment, Coolify **doesn't support Windows**. You must use Linux or MacOS.
 
-#### Recommended Pull Request Guideline
+## State of the Project
+Coolify is currently at v4. While v4 is stable, it has some limitations, including:
+- Limited scaling support
+- A more complex user experience
+- Other smaller issues that need refinement
 
-- Fork the project
-- Clone your fork repo to local
-- Create a new branch
-- Push to your fork repo
-- Create a pull request: https://github.com/coollabsio/compare
-- Write a proper description
-- Open the pull request to review against `next` branch
+These limitations will be addressed over time. Fixes and small improvements are accepted on the production line. New features and larger changes require prior discussion and must go through the development line.
 
----
 
-# How to start after you set up your local fork?
+## What Makes a Strong Contribution
+The following types of contributions are most likely to be accepted:
 
-Due to the lock file, this repository is best with [pnpm](https://pnpm.io). I recommend you try and use `pnpm` because it is cool and efficient!
+#### Code Quality and Testing
+All contributions must adhere to the highest standards of code quality and testing:
 
-You need to have [Docker Engine](https://docs.docker.com/engine/install/) installed locally.
+If your change is small and obvious (typo fix, small bug, minor docs update), you may open a pull request directly.
 
-#### Setup a local development environment
 
-- Copy `.env.template` to `.env` and set the `COOLIFY_APP_ID` environment variable to something cool.
-- Install dependencies with `pnpm install`.
-- Need to create a local SQlite database with `pnpm db:push`.
-  - This will apply all migrations at `db/dev.db`.
-- Seed the database with base entities with `pnpm db:seed`
-- You can start coding after starting `pnpm dev`.
+If you are fixing a bug in `file.yaml`, do not:
+- Reformat unrelated files
+- Refactor unrelated code
+- Fix style issues elsewhere
+- Combine multiple unrelated changes
 
-#### How to start after you set up your local fork?
+Even “improvements” increase review complexity.
 
-This repository works better with [pnpm](https://pnpm.io) due to the lock file. I recommend you to give it a try and use `pnpm` as well because it is cool and efficient!
+**One pull request = one logical change.**
 
-You need to have [Docker Engine](https://docs.docker.com/engine/install/) installed locally.
+If you want to refactor or clean up code, discuss it first and submit it separately.
 
-## 🧑‍💻 Developer contribution
 
-### Technical skills required
+## Discussion Is Required for Larger Changes
+For anything beyond a small fix, you must discuss it before opening a pull request.
 
-- **Languages**: Node.js / Javascript / Typescript
-- **Framework JS/TS**: Svelte / SvelteKit
-- **Database ORM**: Prisma.io
-- **Docker Engine**
+This includes:
+- New features
+- UI/UX changes
+- Changes to default behavior
+- Refactors or cleanup work
+- Performance rewrites
+- Architectural changes
+- Changes touching many files
 
-### Database migrations
+Discussion happens in GitHub Discussions: https://github.com/coollabsio/coolify/discussions/categories/general
 
-During development, if you change the database layout, you need to run `pnpm db:push` to migrate the database and create types for Prisma. You also need to restart the development process.
+Pull requests introducing major changes without prior discussion will be closed without review.
 
-If the schema is finalized, you need to create a migration file with `pnpm db:migrate <nameOfMigration>` where `nameOfMigration` is given by you. Make it sense. :)
+This ensures alignment before significant work is done.
 
-### Tricky parts
 
-- BullMQ, the queue system Coolify uses, cannot be hot reloaded. So if you change anything in the files related to it, you need to restart the development process. I'm actively looking for a different queue/scheduler library. I'm open to discussion!
+## What This Project Is Not
+To set clear expectations:
+- Coolify is not optimized for first-time open-source contributors
+- We do not provide beginner-focused mentorship issues
+- Large unsolicited changes are unlikely to be accepted
+- Broad refactors or style rewrites are not helpful
+- Low-effort AI-generated pull requests will be closed
 
----
+AI usage is allowed. However, contributors must fully understand what their changes do and why.
 
-# How to add new services
+Clear expectations help everyone use their time effectively.
 
-You can add any open-source and self-hostable software (service/application) to Coolify if the following statements are true:
 
-- Self-hostable (obviously)
-- Open-source
-- Maintained (I do not want to add software full of bugs)
+# Ways to Contribute
+## 1. Support Contributions
+We use Discord for most support requests and GitHub Discussions for help.
 
-## Backend
+### Requesting Support
+If you need help:
+- Provide complete and detailed information
+- Include logs, screenshots, and steps to reproduce
+- Be respectful — support is voluntary
 
-There are 5 steps you should make on the backend side.
+Do not ping people for attention. They respond when available.
 
-1. Create Prisma / database schema for the new service.
-2. Add supported versions of the service.
-3. Update global functions.
-4. Create API endpoints.
-5. Define automatically generated variables.
+### Providing Support
+If you help others:
+- Verify your information before sharing
+- Be patient and respectful
+- Remember that not everyone has the same experience level
 
-> I will use [Umami](https://umami.is/) as an example service.
 
-### Create Prisma / database schema for the new service.
+## 2. Bug Report Contributions
+Create a GitHub issue **only** if:
+- The bug is reproducible
+- You have confirmed no existing issue already covers it
 
-You only need to do this if you store passwords or any persistent configuration. Mostly it is required by all services, but there are some exceptions, like NocoDB.
+For questions or general help, use GitHub Discussions or the Discord support channel.
 
-Update Prisma schema in [prisma/schema.prisma](prisma/schema.prisma).
+Bug reports must include:
+- Clear reproduction steps
+- Expected result
+- Actual result
 
-- Add new model with the new service name.
-- Make a relationshup with `Service` model.
-- In the `Service` model, the name of the new field should be with low-capital.
-- If the service needs a database, define a `publicPort` field to be able to make it's database public, example field name in case of PostgreSQL: `postgresqlPublicPort`. It should be a optional field.
+Incomplete reports and reports generated using AI may be closed.
 
-If you are finished with the Prisma schema, you should update the database schema with `pnpm db:push` command.
 
-> You must restart the running development environment to be able to use the new model
+## 3. Code Contributions
+Maintainers may close pull requests at their discretion, without explanation.
 
-> If you use VSCode, you probably need to restart the `Typescript Language Server` to get the new types loaded in the running VSCode.
+### Issue Requirement
+Every pull request should reference and close an Issue or Discussion.
 
-### Add supported versions
+If none exists, create one first.
 
-Supported versions are hardcoded into Coolify (for now).
+Pull requests without linked issue or discussions may not be reviewed and can be closed at any time.
 
-You need to update `supportedServiceTypesAndVersions` function at [src/lib/components/common.ts](src/lib/components/common.ts). Example JSON:
 
-```js
-     {
-       // Name used to identify the service internally
-       name: 'umami',
-       // Fancier name to show to the user
-       fancyName: 'Umami',
-       // Docker base image for the service
-       baseImage: 'ghcr.io/mikecao/umami',
-       // Optional: If there is any dependent image, you should list it here
-       images: [],
-       // Usable tags
-       versions: ['postgresql-latest'],
-       // Which tag is the recommended
-       recommendedVersion: 'postgresql-latest',
-       // Application's default port, Umami listens on 3000
-       ports: {
-         main: 3000
-       }
-     }
+## Commit Message Format
+All commits must start with an action and category:
+- `fix(ui):` — UI-related fixes
+- `feat(api):` — API-related changes
+- `feat(service):` — One-click service changes
+
+Examples:
+- `fix(api): version endpoint returns wrong data`
+- `feat(service): add supabase`
+
+Use the commit description only for concise context.
+
+Walls of text listing every change in description will be rejected.
+
+
+## Pull Request Title Format
+Pull request titles follow the same format:
+- `fix(ui):`
+- `feat(api):`
+- `feat(service):`
+
+Examples:
+- `fix(api): version endpoint returns wrong data`
+- `feat(service): add supabase`
+
+
+## AI Usage Disclosure
+If AI tools were used at any stage, mention it in the pull request description.
+
+AI is allowed.
+
+However:
+- You must understand every change
+- You must verify correctness
+- You must ensure it follows project patterns
+
+AI-generated pull requests without clear understanding will be closed.
+
+
+## Test Before Submitting
+Before submitting a pull request:
+- Manually test your changes thoroughly
+- Verify they work in a clean environment
+- Provide detailed testing steps in the PR description
+
+If maintainers cannot reproduce working behavior, the PR will be closed without further review.
+
+
+## Submitting a Pull Request
+- GitHub will auto-populate the PR template
+- The contributor agreement in PR description must remain intact
+- Pull requests without the contributor agreement will be closed
+
+Choose the branch based on the type of change:
+
+| Change | Start from | Pull request target |
+| --- | --- | --- |
+| Fixes and small improvements | `main` | `main` |
+| Security fixes | `main` | `main` |
+| New features and larger changes | `next` | `next` |
+
+- For a fix, branch from `main` and target `main`.
+- For a feature, branch from `next` and target `next`.
+- If a fix is discovered while developing a feature, submit it separately to `main`. `main` is merged into `next` automatically, so the fix is included there too.
+- Pull requests targeting the wrong branch may be closed or asked to retarget.
+
+
+## FAQ
+**Q: Should I ask before fixing a typo or a small bug?**  
+A: No, small, obvious fixes like typos or narrowly-scoped bug fixes can be submitted as a PR directly.
+
+**Q: I have an idea for a new feature.**  
+A: Awesome! Discuss it first in GitHub Discussions or Discord. **Do not** open a PR for new features without prior alignment.
+
+**Q: My PR was closed without detailed feedback.**  
+A: This usually means it didn’t align with the project’s direction, required more review bandwidth than available, or targeted major changes not allowed in v4. 
+
+**Q: Can I work on an open issue?**  
+A: Comment on the issue first to confirm it’s still relevant and that no one else is actively working on it. For anything beyond a small fix, discuss your approach before implementing.
+
+**Q: I noticed code that could be cleaned up while working on my change.**  
+A: Focus only on your stated goal. Cleanups or refactors should be submitted as separate PRs after discussion.
+
+**Q: Can I use AI to help with my PR?**  
+A: Yes, AI-assisted contributions are allowed. But you must fully understand and verify the changes. PRs that appear to be generated by AI without context understanding will be closed.
+
+**Q: My PR was closed without review. Can I submit a new one?**  
+A: Yes, but keep in mind a PR closure is feedback, not a rejection of your effort. It usually means the PR didn’t match the project goals or guidelines. Address these issues first — repeating the same approach may hurt your standing with maintainers.
+
+
+# Development Guides
+## Local Development
+To build and run Coolify locally, see: [Development](./DEVELOPMENT.md)
+
+### Testing the Coolify Helper Locally
+
+The helper image lives in [coollabsio/coolify-helper](https://github.com/coollabsio/coolify-helper). The development setup builds its `main` branch as `coollabsio/coolify-helper:dev`, set the helper version override to `dev` to use it. `scripts/dev-helper` builds it from there too, or from a local checkout with `HELPER_CONTEXT=../coolify-helper/src`.
+
+Use `scripts/dev-helper` to build a local helper image and test it with the running development instance. The script requires the standard local Coolify container and the seeded Dockerfile, Docker Compose, and Nixpacks applications.
+
+Run the complete workflow:
+
+```bash
+./scripts/dev-helper test my-helper-test
 ```
 
-### Update global functions
+This builds and selects the helper image, verifies its bundled tools and Docker socket access, runs a Docker Compose smoke test, and deploys all three seeded applications.
 
-1. Add the new service to the `include` variable in [src/lib/database/services.ts](src/lib/database/services.ts), so it will be included in all places in the database queries where it is required.
+You can also run each step separately:
 
-```js
-const include: Prisma.ServiceInclude = {
-	destinationDocker: true,
-	persistentStorage: true,
-	serviceSecret: true,
-	minio: true,
-	plausibleAnalytics: true,
-	vscodeserver: true,
-	wordpress: true,
-	ghost: true,
-	meiliSearch: true,
-	umami: true // This line!
-};
+```bash
+./scripts/dev-helper build my-helper-test
+./scripts/dev-helper use my-helper-test
+./scripts/dev-helper verify my-helper-test
+./scripts/dev-helper deploy my-helper-test
 ```
 
-2. Update the database update query with the new service type to `configureServiceType` function in [src/lib/database/services.ts](src/lib/database/services.ts). This function defines the automatically generated variables (passwords, users, etc.) and it's encryption process (if applicable).
+Clear the helper override when finished:
 
-```js
-[...]
-else if (type === 'umami') {
-		const postgresqlUser = cuid();
-		const postgresqlPassword = encrypt(generatePassword());
-		const postgresqlDatabase = 'umami';
-		const hashSalt = encrypt(generatePassword(64));
-		await prisma.service.update({
-			where: { id },
-			data: {
-				type,
-				umami: {
-					create: {
-						postgresqlDatabase,
-						postgresqlPassword,
-						postgresqlUser,
-						hashSalt,
-					}
-				}
-			}
-		});
-	}
+```bash
+./scripts/dev-helper reset
 ```
 
-3. Add decryption process for configurations and passwords to `getService` function in [src/lib/database/services.ts](src/lib/database/services.ts)
+The default image repository is `docker.io/coollabsio/coolify-helper`. Set `HELPER_IMAGE_REPOSITORY` to test another repository, or `COOLIFY_CONTAINER` if the local Coolify container has a different name.
 
-```js
-if (body.umami?.postgresqlPassword)
-	body.umami.postgresqlPassword = decrypt(body.umami.postgresqlPassword);
+### macOS Development with Lima
+Mac users can use [Lima](https://lima-vm.io/) to run a lightweight Linux virtual machine for local Coolify development. This is useful if you prefer a Linux-based Docker environment on macOS.
 
-if (body.umami?.hashSalt) body.umami.hashSalt = decrypt(body.umami.hashSalt);
-```
+After creating and starting a Lima VM, run the normal local development commands from inside the VM as described in [Development](./DEVELOPMENT.md).
 
-4. Add service deletion query to `removeService` function in [src/lib/database/services.ts](src/lib/database/services.ts)
+## Adding a New Service
+To add a new one-click service, follow: https://coolify.io/docs/get-started/contribute/service
 
-### Create API endpoints.
-
-You need to add a new folder under [src/routes/services/[id]](src/routes/services/[id]) with the low-capital name of the service. You need 3 default files in that folder.
-
-#### `index.json.ts`:
-
-It has a POST endpoint that updates the service details in Coolify's database, such as name, url, other configurations, like passwords. It should look something like this:
-
-```js
-import { getUserDetails } from '$lib/common';
-import * as db from '$lib/database';
-import { ErrorHandler } from '$lib/database';
-import type { RequestHandler } from '@sveltejs/kit';
-
-export const post: RequestHandler = async (event) => {
-	const { status, body } = await getUserDetails(event);
-	if (status === 401) return { status, body };
-
-	const { id } = event.params;
-
-	let { name, fqdn } = await event.request.json();
-	if (fqdn) fqdn = fqdn.toLowerCase();
-
-	try {
-		await db.updateService({ id, fqdn, name });
-		return { status: 201 };
-	} catch (error) {
-		return ErrorHandler(error);
-	}
-};
-```
-
-If it's necessary, you can create your own database update function, specifically for the new service.
-
-#### `start.json.ts`
-
-It has a POST endpoint that sets all the required secrets, persistent volumes, `docker-compose.yaml` file and sends a request to the specified docker engine.
-
-You could also define an `HTTP` or `TCP` proxy for every other port that should be proxied to your server. (See `startHttpProxy` and `startTcpProxy` functions in [src/lib/haproxy/index.ts](src/lib/haproxy/index.ts))
-
-#### `stop.json.ts`
-
-It has a POST endpoint that stops the service and all dependent (TCP/HTTP proxies) containers. If publicPort is specified it also needs to cleanup it from the database.
-
-## Frontend
-
-1. You need to add a custom logo at [src/lib/components/svg/services/](src/lib/components/svg/services/) as a svelte component.
-
-   SVG is recommended, but you can use PNG as well. It should have the `isAbsolute` variable with the suitable CSS classes, primarily for sizing and positioning.
-
-2. You need to include it the logo at
-
-- [src/routes/services/index.svelte](src/routes/services/index.svelte) with `isAbsolute` in two places,
-- [src/lib/components/ServiceLinks.svelte](src/lib/components/ServiceLinks.svelte) with `isAbsolute` and a link to the docs/main site of the service
-- [src/routes/services/[id]/configuration/type.svelte](src/routes/services/[id]/configuration/type.svelte) with `isAbsolute`.
-
-3. By default the URL and the name frontend forms are included in [src/routes/services/[id]/\_Services/\_Services.svelte](src/routes/services/[id]/_Services/_Services.svelte).
-
-   If you need to show more details on the frontend, such as users/passwords, you need to add Svelte component to [src/routes/services/[id]/\_Services](src/routes/services/[id]/_Services) with an underscore. For example, see other files in that folder.
-
-   You also need to add the new inputs to the `index.json.ts` file of the specific service, like for MinIO here: [src/routes/services/[id]/minio/index.json.ts](src/routes/services/[id]/minio/index.json.ts)
-
-## 🌐 Translate the project
-
-The project use [sveltekit-i18n](https://github.com/sveltekit-i18n/lib) to translate the project.
-It follows the [ISO 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) to name languages.
-
-### Installation
-
-You must have gone throw all the [intro](#introduction) steps before you can start translating.
-
-It's only an advice, but I recommend you to use:
-
-- Visual Studio Code
-- [i18n Ally for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=Lokalise.i18n-ally): ideal to see the progress of the translation.
-- [Svelte for VS Code](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode): to get the syntax color for the project
-
-### Adding a language
-
-If your language doesn't appear in the [locales folder list](src/lib/locales/), follow the step below:
-
-1.  In `src/lib/locales/`, Copy paste `en.json` and rename it with your language (eg: `cz.json`).
-2.  In the [lang.json](src/lib/lang.json) file, add a line after the first bracket (`{`) with `"ISO of your language": "Language",` (eg: `"cz": "Czech",`).
-3.  Have fun translating!
+## Contributing to Documentation
+To contribute to documentation, see: https://coolify.io/docs/get-started/contribute/documentation
